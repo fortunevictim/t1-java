@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="005-insert-accounts" author="apupynin">
+        <insert tableName="accounts">
+            <column name="client_id" value="1"/>
+            <column name="product_id" value="1"/>
+            <column name="balance" value="100000.00"/>
+            <column name="interest_rate" value="0.0500"/>
+            <column name="is_recalc" value="true"/>
+            <column name="card_exist" value="false"/>
+            <column name="status" value="ACTIVE"/>
+        </insert>
+        <insert tableName="accounts">
+            <column name="client_id" value="1"/>
+            <column name="product_id" value="2"/>
+            <column name="balance" value="50000.00"/>
+            <column name="interest_rate" value="0.0000"/>
+            <column name="is_recalc" value="false"/>
+            <column name="card_exist" value="true"/>
+            <column name="status" value="ACTIVE"/>
+        </insert>
+        <insert tableName="accounts">
+            <column name="client_id" value="2"/>
+            <column name="product_id" value="3"/>
+            <column name="balance" value="250000.00"/>
+            <column name="interest_rate" value="0.0000"/>
+            <column name="is_recalc" value="false"/>
+            <column name="card_exist" value="false"/>
+            <column name="status" value="ACTIVE"/>
+        </insert>
+        <insert tableName="accounts">
+            <column name="client_id" value="2"/>
+            <column name="product_id" value="7"/>
+            <column name="balance" value="75000.00"/>
+            <column name="interest_rate" value="0.0300"/>
+            <column name="is_recalc" value="true"/>
+            <column name="card_exist" value="false"/>
+            <column name="status" value="ACTIVE"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="006-insert-cards" author="apupynin">
+        <insert tableName="cards">
+            <column name="account_id" value="2"/>
+            <column name="card_id" value="1234567890123456"/>
+            <column name="payment_system" value="VISA"/>
+            <column name="status" value="ACTIVE"/>
+        </insert>
+        <insert tableName="cards">
+            <column name="account_id" value="2"/>
+            <column name="card_id" value="1111112323"/>
+            <column name="payment_system" value="MIR"/>
+            <column name="status" value="ACTIVE"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="007-insert-payments" author="apupynin">
+        <insert tableName="payments">
+            <column name="account_id" value="1"/>
+            <column name="payment_date" value="2024-01-20 10:00:00"/>
+            <column name="amount" value="50000.00"/>
+            <column name="is_credit" value="true"/>
+            <column name="payed_at" value="2024-01-20 10:05:00"/>
+            <column name="type" value="DEPOSIT"/>
+        </insert>
+        <insert tableName="payments">
+            <column name="account_id" value="2"/>
+            <column name="payment_date" value="2024-02-01 14:30:00"/>
+            <column name="amount" value="25000.00"/>
+            <column name="is_credit" value="true"/>
+            <column name="payed_at" value="2024-02-01 14:35:00"/>
+            <column name="type" value="DEPOSIT"/>
+        </insert>
+        <insert tableName="payments">
+            <column name="account_id" value="3"/>
+            <column name="payment_date" value="2024-01-25 09:15:00"/>
+            <column name="amount" value="100000.00"/>
+            <column name="is_credit" value="true"/>
+            <column name="payed_at" value="2024-01-25 09:20:00"/>
+            <column name="type" value="DEPOSIT"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="008-insert-transactions" author="apupynin">
+        <insert tableName="transactions">
+            <column name="account_id" value="1"/>
+            <column name="card_id" value="1"/>
+            <column name="type" value="CREDIT"/>
+            <column name="amount" value="50000.00"/>
+            <column name="status" value="COMPLETE"/>
+            <column name="timestamp" value="2024-01-20 10:05:00"/>
+        </insert>
+        <insert tableName="transactions">
+            <column name="account_id" value="2"/>
+            <column name="card_id" value="1"/>
+            <column name="type" value="CREDIT"/>
+            <column name="amount" value="25000.00"/>
+            <column name="status" value="COMPLETE"/>
+            <column name="timestamp" value="2024-02-01 14:35:00"/>
+        </insert>
+        <insert tableName="transactions">
+            <column name="account_id" value="3"/>
+            <column name="card_id" value="1"/>
+            <column name="type" value="CREDIT"/>
+            <column name="amount" value="100000.00"/>
+            <column name="status" value="COMPLETE"/>
+            <column name="timestamp" value="2024-01-25 09:20:00"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
