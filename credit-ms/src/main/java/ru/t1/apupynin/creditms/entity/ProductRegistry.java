@@ -28,17 +28,21 @@ public class ProductRegistry {
     @Column(name = "open_date", nullable = false)
     private LocalDateTime openDate;
     
+    @Column(name = "month_count", nullable = false)
+    private Integer monthCount;
+    
 
 
     public ProductRegistry() {}
     
     public ProductRegistry(Long clientId, Long accountId, Long productId, 
-                          BigDecimal interestRate, LocalDateTime openDate) {
+                          BigDecimal interestRate, LocalDateTime openDate, Integer monthCount) {
         this.clientId = clientId;
         this.accountId = accountId;
         this.productId = productId;
         this.interestRate = interestRate;
         this.openDate = openDate;
+        this.monthCount = monthCount;
     }
     
 
@@ -55,6 +59,8 @@ public class ProductRegistry {
     public void setInterestRate(BigDecimal interestRate) { this.interestRate = interestRate; }
     public LocalDateTime getOpenDate() { return openDate; }
     public void setOpenDate(LocalDateTime openDate) { this.openDate = openDate; }
+    public Integer getMonthCount() { return monthCount; }
+    public void setMonthCount(Integer monthCount) { this.monthCount = monthCount; }
 
 
 
@@ -71,6 +77,6 @@ public class ProductRegistry {
     
     @Override
     public String toString() {
-        return "ProductRegistry{id=" + id + ", clientId=" + clientId + ", productId=" + productId + "}";
+        return "ProductRegistry{id=" + id + ", clientId=" + clientId + ", productId=" + productId + ", monthCount=" + monthCount + "}";
     }
 }

@@ -12,6 +12,7 @@
             <column name="product_id" value="4"/>
             <column name="interest_rate" value="0.1200"/>
             <column name="open_date" value="2024-01-25 11:20:00"/>
+            <column name="month_count" value="24"/>
         </insert>
         <insert tableName="product_registry">
             <column name="client_id" value="3"/>
@@ -19,6 +20,7 @@
             <column name="product_id" value="5"/>
             <column name="interest_rate" value="0.1500"/>
             <column name="open_date" value="2024-02-05 13:10:00"/>
+            <column name="month_count" value="36"/>
         </insert>
     </changeSet>
 

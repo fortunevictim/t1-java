@@ -29,6 +29,15 @@ spring:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.xml
 
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: client-ms-group
+      auto-offset-reset: earliest
+    producer:
+      acks: all
+
 logging:
   level:
     org.springframework.web: DEBUG
