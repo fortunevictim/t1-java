@@ -6,6 +6,9 @@ import ru.t1.apupynin.clientms.dto.RegistrationRequest;
 import ru.t1.apupynin.clientms.entity.Client;
 import ru.t1.apupynin.clientms.entity.User;
 import ru.t1.apupynin.clientms.repository.ClientRepository;
+import ru.t1.apupynin.clientms.repository.BlacklistRegistryRepository;
+
+import java.time.LocalDateTime;
 import ru.t1.apupynin.clientms.repository.UserRepository;
 
 @Service
@@ -13,14 +16,24 @@ public class RegistrationService {
 
     private final ClientRepository clientRepository;
     private final UserRepository userRepository;
+    private final BlacklistRegistryRepository blacklistRepository;
 
-    public RegistrationService(ClientRepository clientRepository, UserRepository userRepository) {
+    public RegistrationService(ClientRepository clientRepository, UserRepository userRepository, BlacklistRegistryRepository blacklistRepository) {
         this.clientRepository = clientRepository;
         this.userRepository = userRepository;
+        this.blacklistRepository = blacklistRepository;
     }
 
     private boolean isInBlacklist(RegistrationRequest req) {
-        return false;
+        LocalDateTime now = LocalDateTime.now();
+        return blacklistRepository.findFirstByDocumentTypeAndDocumentIdAndBlacklistExpirationDateAfter(
+                req.documentType,
+                req.documentId,
+                now
+        ).isPresent() || blacklistRepository.findFirstByDocumentTypeAndDocumentIdAndBlacklistExpirationDateIsNull(
+                req.documentType,
+                req.documentId
+        ).isPresent();
     }
 
     @Transactional
