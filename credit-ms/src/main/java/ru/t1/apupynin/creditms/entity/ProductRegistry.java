@@ -16,7 +16,7 @@ public class ProductRegistry {
     @Column(name = "client_id", nullable = false)
     private Long clientId;
     
-    @Column(name = "account_id", nullable = false)
+    @Column(name = "account_id")
     private Long accountId;
     
     @Column(name = "product_id", nullable = false)

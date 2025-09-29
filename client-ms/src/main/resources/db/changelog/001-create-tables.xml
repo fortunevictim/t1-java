@@ -59,7 +59,7 @@
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="key" type="VARCHAR(10)">
+            <column name="product_key" type="VARCHAR(10)">
                 <constraints nullable="false"/>
             </column>
             <column name="name" type="VARCHAR(200)">
@@ -111,6 +111,30 @@
             </column>
             <column name="reason" type="VARCHAR(255)"/>
             <column name="blacklist_expiration_date" type="TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="006-drop-products-table" author="apupynin">
+        <dropTable tableName="products"/>
+    </changeSet>
+
+    <changeSet id="007-recreate-products-table" author="apupynin">
+        <createTable tableName="products">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="product_key" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_date" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_id" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 

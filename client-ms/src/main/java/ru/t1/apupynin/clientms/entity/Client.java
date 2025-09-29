@@ -1,6 +1,7 @@
 package ru.t1.apupynin.clientms.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 import ru.t1.apupynin.clientms.enums.DocumentType;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -14,6 +15,7 @@ public class Client {
     private Long id;
     
     @Column(name = "client_id", nullable = false, unique = true)
+    @Pattern(regexp = "\\d{12}", message = "clientId must match XXFFNNNNNNNN format (12 digits)")
     private String clientId;
     
     @Column(name = "user_id", nullable = false)

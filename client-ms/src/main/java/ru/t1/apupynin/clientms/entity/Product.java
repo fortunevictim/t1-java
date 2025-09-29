@@ -14,7 +14,7 @@ public class Product {
     private Long id;
     
     @Enumerated(EnumType.STRING)
-    @Column(name = "key", nullable = false)
+    @Column(name = "product_key", nullable = false)
     private ProductKey key;
     
     @Column(name = "name", nullable = false)
@@ -69,6 +69,8 @@ public class Product {
     public void setProductId(String productId) {
         this.productId = productId;
     }
+
+    
 
 
 

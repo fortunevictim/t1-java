@@ -64,55 +64,55 @@
 
     <changeSet id="007-insert-products" author="apupynin">
         <insert tableName="products">
-            <column name="key" value="DC"/>
+            <column name="product_key" value="DC"/>
             <column name="name" value="Депозитный счет"/>
             <column name="create_date" value="2024-01-01 00:00:00"/>
             <column name="product_id" value="DC1"/>
         </insert>
         <insert tableName="products">
-            <column name="key" value="CC"/>
+            <column name="product_key" value="CC"/>
             <column name="name" value="Кредитная карта"/>
             <column name="create_date" value="2024-01-01 00:00:00"/>
             <column name="product_id" value="CC1"/>
         </insert>
         <insert tableName="products">
-            <column name="key" value="AC"/>
+            <column name="product_key" value="AC"/>
             <column name="name" value="Аккредитив"/>
             <column name="create_date" value="2024-01-01 00:00:00"/>
             <column name="product_id" value="AC1"/>
         </insert>
         <insert tableName="products">
-            <column name="key" value="IPO"/>
+            <column name="product_key" value="IPO"/>
             <column name="name" value="Ипотечный кредит"/>
             <column name="create_date" value="2024-01-01 00:00:00"/>
             <column name="product_id" value="IPO1"/>
         </insert>
         <insert tableName="products">
-            <column name="key" value="PC"/>
+            <column name="product_key" value="PC"/>
             <column name="name" value="Потребительский кредит"/>
             <column name="create_date" value="2024-01-01 00:00:00"/>
             <column name="product_id" value="PC1"/>
         </insert>
         <insert tableName="products">
-            <column name="key" value="PENS"/>
+            <column name="product_key" value="PENS"/>
             <column name="name" value="Пенсионный счет"/>
             <column name="create_date" value="2024-01-01 00:00:00"/>
             <column name="product_id" value="PENS1"/>
         </insert>
         <insert tableName="products">
-            <column name="key" value="NS"/>
+            <column name="product_key" value="NS"/>
             <column name="name" value="Накопительный счет"/>
             <column name="create_date" value="2024-01-01 00:00:00"/>
             <column name="product_id" value="NS1"/>
         </insert>
         <insert tableName="products">
-            <column name="key" value="INS"/>
+            <column name="product_key" value="INS"/>
             <column name="name" value="Страховой продукт"/>
             <column name="create_date" value="2024-01-01 00:00:00"/>
             <column name="product_id" value="INS1"/>
         </insert>
         <insert tableName="products">
-            <column name="key" value="BS"/>
+            <column name="product_key" value="BS"/>
             <column name="name" value="Брокерский счет"/>
             <column name="create_date" value="2024-01-01 00:00:00"/>
             <column name="product_id" value="BS1"/>
