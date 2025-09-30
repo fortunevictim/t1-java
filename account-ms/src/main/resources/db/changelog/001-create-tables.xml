@@ -73,6 +73,9 @@
             <column name="type" type="VARCHAR(20)">
                 <constraints nullable="false"/>
             </column>
+            <column name="expired" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 

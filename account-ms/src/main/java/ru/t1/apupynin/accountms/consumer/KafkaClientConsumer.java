@@ -24,7 +24,7 @@ public class KafkaClientConsumer {
     }
 
 	@KafkaListener(id = "${t1.kafka.consumer.group-id:account-ms-group}",
-            topics = {"client_products", "client_transactions", "client_cards", "client_credit_opened"},
+            topics = {"client_products", "client_transactions", "client_cards", "client_credit_opened", "client_payments"},
 			containerFactory = "kafkaListenerContainerFactory")
 	public void listener(@Payload List<Object> messageList,
 						 Acknowledgment ack,
@@ -46,9 +46,16 @@ public class KafkaClientConsumer {
                     });
                     break;
                 case "client_transactions":
-					// TODO - maybe in third HW or another
-					messageList.forEach(msg -> log.debug("client_transactions payload: {}", msg));
-					break;
+                    log.info("Processing {} client_transactions messages", messageList.size());
+                    messageList.forEach(msg -> {
+                        log.info("Processing client_transactions message: {}", msg);
+                        if (msg instanceof Map) {
+                            accountService.handleClientTransactions((Map<String, Object>) msg);
+                        } else {
+                            log.warn("Unexpected payload type for client_transactions: {}", msg.getClass());
+                        }
+                    });
+                    break;
                 case "client_credit_opened":
                     messageList.forEach(msg -> {
                         if (msg instanceof Map) {
@@ -66,6 +73,17 @@ public class KafkaClientConsumer {
                             accountService.handleClientCards((Map<String, Object>) msg);
                         } else {
                             log.warn("Unexpected payload type for client_cards: {}", msg.getClass());
+                        }
+                    });
+                    break;
+                case "client_payments":
+                    log.info("Processing {} client_payments messages", messageList.size());
+                    messageList.forEach(msg -> {
+                        log.info("Processing client_payments message: {}", msg);
+                        if (msg instanceof Map) {
+                            accountService.handleClientPayments((Map<String, Object>) msg);
+                        } else {
+                            log.warn("Unexpected payload type for client_payments: {}", msg.getClass());
                         }
                     });
                     break;

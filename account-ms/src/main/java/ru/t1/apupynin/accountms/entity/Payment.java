@@ -33,18 +33,22 @@ public class Payment {
     @Column(name = "type", nullable = false)
     private PaymentType type;
     
+    @Column(name = "expired", nullable = false)
+    private Boolean expired;
+    
 
 
     public Payment() {}
     
     public Payment(Long accountId, LocalDateTime paymentDate, BigDecimal amount, 
-                  Boolean isCredit, LocalDateTime payedAt, PaymentType type) {
+                  Boolean isCredit, LocalDateTime payedAt, PaymentType type, Boolean expired) {
         this.accountId = accountId;
         this.paymentDate = paymentDate;
         this.amount = amount;
         this.isCredit = isCredit;
         this.payedAt = payedAt;
         this.type = type;
+        this.expired = expired;
     }
     
 
@@ -63,6 +67,8 @@ public class Payment {
     public void setPayedAt(LocalDateTime payedAt) { this.payedAt = payedAt; }
     public PaymentType getType() { return type; }
     public void setType(PaymentType type) { this.type = type; }
+    public Boolean getExpired() { return expired; }
+    public void setExpired(Boolean expired) { this.expired = expired; }
 
 
 
