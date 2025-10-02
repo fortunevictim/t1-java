@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="003-create-error-log-table" author="system">
+        <createTable tableName="error_log">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="timestamp" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="method_signature" type="VARCHAR(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="stack_trace" type="TEXT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="exception_message" type="VARCHAR(1000)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="method_parameters" type="TEXT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="log_type" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="service_name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        
+        <createIndex tableName="error_log" indexName="idx_error_log_timestamp">
+            <column name="timestamp"/>
+        </createIndex>
+        
+        <createIndex tableName="error_log" indexName="idx_error_log_service_name">
+            <column name="service_name"/>
+        </createIndex>
+        
+        <createIndex tableName="error_log" indexName="idx_error_log_type">
+            <column name="log_type"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

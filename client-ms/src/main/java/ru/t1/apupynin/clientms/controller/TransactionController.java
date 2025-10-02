@@ -4,6 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
+import ru.t1.apupynin.clientms.annotation.HttpIncomeRequestLog;
+import ru.t1.apupynin.clientms.annotation.HttpOutcomeRequestLog;
+import ru.t1.apupynin.clientms.annotation.LogDatasourceError;
 
 import java.util.Map;
 import java.util.UUID;
@@ -20,6 +23,9 @@ public class TransactionController {
     }
 
     @PostMapping
+    @HttpIncomeRequestLog
+    @HttpOutcomeRequestLog
+    @LogDatasourceError
     public ResponseEntity<Void> createTransaction(@RequestBody TransactionRequest request) {
         log.info("Transaction request received: {}", request);
         

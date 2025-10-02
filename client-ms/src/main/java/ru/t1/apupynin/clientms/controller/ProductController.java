@@ -2,6 +2,9 @@ package ru.t1.apupynin.clientms.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.t1.apupynin.clientms.annotation.HttpIncomeRequestLog;
+import ru.t1.apupynin.clientms.annotation.HttpOutcomeRequestLog;
+import ru.t1.apupynin.clientms.annotation.LogDatasourceError;
 import ru.t1.apupynin.clientms.dto.ProductDto;
 import ru.t1.apupynin.clientms.entity.Product;
 import ru.t1.apupynin.clientms.mapper.DtoMapper;
@@ -23,11 +26,17 @@ public class ProductController {
     }
 
     @GetMapping
+    @HttpIncomeRequestLog
+    @HttpOutcomeRequestLog
+    @LogDatasourceError
     public List<ProductDto> list() {
         return productRepository.findAll().stream().map(mapper::toDto).toList();
     }
 
     @GetMapping("/{id}")
+    @HttpIncomeRequestLog
+    @HttpOutcomeRequestLog
+    @LogDatasourceError
     public ResponseEntity<ProductDto> get(@PathVariable("id") Long id) {
         return productRepository.findById(id)
                 .map(mapper::toDto)
@@ -36,6 +45,9 @@ public class ProductController {
     }
 
     @PostMapping
+    @HttpIncomeRequestLog
+    @HttpOutcomeRequestLog
+    @LogDatasourceError
     public ResponseEntity<ProductDto> create(@RequestBody Product product) {
         Product saved = productRepository.save(product);
         return ResponseEntity.created(URI.create("/api/products/" + saved.getId())).body(mapper.toDto(saved));

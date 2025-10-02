@@ -2,6 +2,7 @@ package ru.t1.apupynin.clientms.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.t1.apupynin.clientms.annotation.LogDatasourceError;
 import ru.t1.apupynin.clientms.dto.RegistrationRequest;
 import ru.t1.apupynin.clientms.entity.Client;
 import ru.t1.apupynin.clientms.entity.User;
@@ -24,6 +25,7 @@ public class RegistrationService {
         this.blacklistRepository = blacklistRepository;
     }
 
+    @LogDatasourceError
     private boolean isInBlacklist(RegistrationRequest req) {
         LocalDateTime now = LocalDateTime.now();
         return blacklistRepository.findFirstByDocumentTypeAndDocumentIdAndBlacklistExpirationDateAfter(
@@ -37,6 +39,7 @@ public class RegistrationService {
     }
 
     @Transactional
+    @LogDatasourceError
     public User register(RegistrationRequest req) {
         if (isInBlacklist(req)) {
             throw new IllegalArgumentException("Client is in blacklist");
