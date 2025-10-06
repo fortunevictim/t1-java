@@ -3,6 +3,8 @@ package ru.t1.apupynin.clientms.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.t1.apupynin.clientms.annotation.LogDatasourceError;
+import ru.t1.apupynin.common.aspects.annotation.Metric;
+import ru.t1.apupynin.common.aspects.annotation.Cached;
 import ru.t1.apupynin.clientms.dto.RegistrationRequest;
 import ru.t1.apupynin.clientms.entity.Client;
 import ru.t1.apupynin.clientms.entity.User;
@@ -18,30 +20,22 @@ public class RegistrationService {
     private final ClientRepository clientRepository;
     private final UserRepository userRepository;
     private final BlacklistRegistryRepository blacklistRepository;
+    private final BlacklistService blacklistService;
 
-    public RegistrationService(ClientRepository clientRepository, UserRepository userRepository, BlacklistRegistryRepository blacklistRepository) {
+    public RegistrationService(ClientRepository clientRepository, UserRepository userRepository, BlacklistRegistryRepository blacklistRepository, BlacklistService blacklistService) {
         this.clientRepository = clientRepository;
         this.userRepository = userRepository;
         this.blacklistRepository = blacklistRepository;
+        this.blacklistService = blacklistService;
     }
 
-    @LogDatasourceError
-    private boolean isInBlacklist(RegistrationRequest req) {
-        LocalDateTime now = LocalDateTime.now();
-        return blacklistRepository.findFirstByDocumentTypeAndDocumentIdAndBlacklistExpirationDateAfter(
-                req.documentType,
-                req.documentId,
-                now
-        ).isPresent() || blacklistRepository.findFirstByDocumentTypeAndDocumentIdAndBlacklistExpirationDateIsNull(
-                req.documentType,
-                req.documentId
-        ).isPresent();
-    }
+
 
     @Transactional
     @LogDatasourceError
+    @Metric
     public User register(RegistrationRequest req) {
-        if (isInBlacklist(req)) {
+        if (blacklistService.isInBlacklist(req.documentType, req.documentId)) {
             throw new IllegalArgumentException("Client is in blacklist");
         }
 

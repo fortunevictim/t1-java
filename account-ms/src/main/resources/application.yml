@@ -37,5 +37,14 @@ spring:
 
 logging:
   level:
+    org.hibernate.SQL: DEBUG
     org.springframework.web: DEBUG
     ru.t1.apupynin.accountms: DEBUG
+
+metrics:
+  threshold:
+    ms: 100
+
+cache:
+  ttl:
+    ms: 60000

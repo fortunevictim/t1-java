@@ -16,6 +16,8 @@ import ru.t1.apupynin.accountms.repository.AccountRepository;
 import ru.t1.apupynin.accountms.repository.CardRepository;
 import ru.t1.apupynin.accountms.repository.PaymentRepository;
 import ru.t1.apupynin.accountms.repository.TransactionRepository;
+import ru.t1.apupynin.common.aspects.annotation.Metric;
+import ru.t1.apupynin.common.aspects.annotation.Cached;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -52,6 +54,7 @@ public class AccountService {
     }
 
     @Transactional
+    @Metric
     public void handleClientCards(Map<String, Object> payload) {
         log.info("Processing card request with payload: {}", payload);
         
@@ -84,6 +87,7 @@ public class AccountService {
     }
 
     @Transactional
+    @Metric
     public void handleClientTransactions(Map<String, Object> payload) {
         log.info("Processing transaction with payload: {}", payload);
         
@@ -179,6 +183,7 @@ public class AccountService {
         return type == TransactionType.CREDIT || type == TransactionType.TRANSFER_IN || type == TransactionType.REFUND;
     }
     
+    @Cached(cacheName = "card-suspicious")
     private boolean isCardSuspicious(Long cardId) {
         LocalDateTime fiveMinutesAgo = LocalDateTime.now().minus(5, ChronoUnit.MINUTES);
         List<Transaction> recentTransactions = transactionRepository.findByCardIdAndTimestampAfter(cardId, fiveMinutesAgo);

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.t1.apupynin.creditms.entity.ProductRegistry;
 import ru.t1.apupynin.creditms.repository.ProductRegistryRepository;
+import ru.t1.apupynin.common.aspects.annotation.Metric;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -25,6 +26,7 @@ public class CreditService {
     }
 
     @Transactional
+    @Metric
     public void processCreditProduct(Map<String, Object> payload, long creditLimit) {
         Long clientId = toLong(payload.get("clientId"));
         Long productId = toLong(payload.get("productId"));

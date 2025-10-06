@@ -33,11 +33,4 @@ public class KafkaConfig {
     public KafkaTemplate<String, Map<String, Object>> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
-
-    @Bean
-    public ObjectMapper objectMapper() {
-        return new ObjectMapper();
-    }
 }
-
-

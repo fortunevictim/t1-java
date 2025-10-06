@@ -24,6 +24,7 @@
         <module>client-ms</module>
         <module>account-ms</module>
         <module>credit-ms</module>
+        <module>common-aspects</module>
     </modules>
 
     <dependencyManagement>

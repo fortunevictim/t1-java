@@ -5,20 +5,21 @@ WORKDIR /app
 
 COPY pom.xml .
 
+COPY common-aspects/pom.xml common-aspects/
 COPY client-ms/pom.xml client-ms/
 COPY account-ms/pom.xml account-ms/
 COPY credit-ms/pom.xml credit-ms/
 
 
 RUN --mount=type=cache,target=/root/.m2 mvn -q dependency:go-offline \
-    -pl client-ms,account-ms,credit-ms -am
+    -pl common-aspects,client-ms,account-ms,credit-ms -am
 
 
 COPY . .
 
 
 RUN --mount=type=cache,target=/root/.m2 mvn -q -DskipTests \
-    -pl client-ms,account-ms,credit-ms -am clean package
+    -pl common-aspects,client-ms,account-ms,credit-ms -am clean package
 
 
 # === 
