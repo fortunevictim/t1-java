@@ -4,9 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
-import ru.t1.apupynin.clientms.annotation.HttpIncomeRequestLog;
-import ru.t1.apupynin.clientms.annotation.HttpOutcomeRequestLog;
-import ru.t1.apupynin.clientms.annotation.LogDatasourceError;
+import ru.t1.apupynin.common.aspects.annotation.HttpIncomeRequestLog;
+import ru.t1.apupynin.common.aspects.annotation.HttpOutcomeRequestLog;
+import ru.t1.apupynin.common.aspects.annotation.LogDatasourceError;
 
 import java.util.Map;
 import java.util.UUID;

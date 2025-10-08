@@ -2,7 +2,9 @@ package ru.t1.apupynin.clientms.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.t1.apupynin.clientms.annotation.LogDatasourceError;
+import ru.t1.apupynin.common.aspects.annotation.LogDatasourceError;
+import ru.t1.apupynin.common.aspects.annotation.HttpIncomeRequestLog;
+import ru.t1.apupynin.common.aspects.annotation.HttpOutcomeRequestLog;
 import ru.t1.apupynin.common.aspects.annotation.Metric;
 import ru.t1.apupynin.common.aspects.annotation.Cached;
 import ru.t1.apupynin.clientms.dto.RegistrationRequest;
@@ -33,6 +35,8 @@ public class RegistrationService {
 
     @Transactional
     @LogDatasourceError
+    @HttpIncomeRequestLog
+    @HttpOutcomeRequestLog
     @Metric
     public User register(RegistrationRequest req) {
         if (blacklistService.isInBlacklist(req.documentType, req.documentId)) {

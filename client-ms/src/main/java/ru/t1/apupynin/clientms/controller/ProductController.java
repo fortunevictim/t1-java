@@ -2,9 +2,9 @@ package ru.t1.apupynin.clientms.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.t1.apupynin.clientms.annotation.HttpIncomeRequestLog;
-import ru.t1.apupynin.clientms.annotation.HttpOutcomeRequestLog;
-import ru.t1.apupynin.clientms.annotation.LogDatasourceError;
+import ru.t1.apupynin.common.aspects.annotation.HttpIncomeRequestLog;
+import ru.t1.apupynin.common.aspects.annotation.HttpOutcomeRequestLog;
+import ru.t1.apupynin.common.aspects.annotation.LogDatasourceError;
 import ru.t1.apupynin.clientms.dto.ProductDto;
 import ru.t1.apupynin.clientms.entity.Product;
 import ru.t1.apupynin.clientms.mapper.DtoMapper;
