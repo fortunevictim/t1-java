@@ -36,7 +36,6 @@ public class LogDatasourceErrorAspect {
     @AfterThrowing(pointcut = "@annotation(ru.t1.apupynin.common.aspects.annotation.LogDatasourceError)", throwing = "exception")
     public void logDatasourceError(JoinPoint joinPoint, Throwable exception) {
         log.error("Datasource error occurred in method: {}", joinPoint.getSignature().toShortString());
-
         try {
             LocalDateTime timestamp = LocalDateTime.now();
             String methodSignature = joinPoint.getSignature().toLongString();

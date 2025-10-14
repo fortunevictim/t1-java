@@ -50,3 +50,10 @@ metrics:
 cache:
   ttl:
     ms: 60000
+
+security:
+  jwt:
+    /* Base64-encoded secret key used to sign JWTs */
+    secret: b2hfbXlfZ29kX2l0c19zZWNyZXRfa2V5
+    /* Token time-to-live in milliseconds */
+    ttl-ms: 3600000

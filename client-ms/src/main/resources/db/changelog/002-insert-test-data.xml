@@ -23,6 +23,21 @@
         </insert>
     </changeSet>
 
+    <changeSet id="005a-insert-user-roles" author="apupynin">
+        <insert tableName="user_roles">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="role" value="MASTER"/>
+        </insert>
+        <insert tableName="user_roles">
+            <column name="user_id" valueNumeric="2"/>
+            <column name="role" value="GRAND_EMPLOYEE"/>
+        </insert>
+        <insert tableName="user_roles">
+            <column name="user_id" valueNumeric="3"/>
+            <column name="role" value="CURRENT_CLIENT"/>
+        </insert>
+    </changeSet>
+
     <changeSet id="006-insert-clients" author="apupynin">
         <insert tableName="clients">
             <column name="client_id" value="770100000001"/>

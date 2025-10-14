@@ -2,8 +2,12 @@ package ru.t1.apupynin.clientms.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
+import ru.t1.apupynin.common.aspects.annotation.HttpIncomeRequestLog;
+import ru.t1.apupynin.common.aspects.annotation.HttpOutcomeRequestLog;
+import ru.t1.apupynin.common.aspects.annotation.LogDatasourceError;
 
 import java.util.Map;
 
@@ -19,6 +23,10 @@ public class CardRequestController {
     }
 
     @PostMapping("/request")
+    @PreAuthorize("hasAnyRole('MASTER','GRAND_EMPLOYEE','CURRENT_CLIENT')")
+    @HttpIncomeRequestLog
+    @HttpOutcomeRequestLog
+    @LogDatasourceError
     public ResponseEntity<Void> requestCard(@RequestParam("accountId") Long accountId,
                                             @RequestParam("paymentSystem") String paymentSystem) {
         log.info("Card request received for accountId: {}, paymentSystem: {}", accountId, paymentSystem);

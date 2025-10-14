@@ -48,3 +48,8 @@ metrics:
 cache:
   ttl:
     ms: 60000
+
+security:
+  jwt:
+    secret: b2hfbXlfZ29kX2l0c19zZWNyZXRfa2V5
+    ttl-ms: 3600000

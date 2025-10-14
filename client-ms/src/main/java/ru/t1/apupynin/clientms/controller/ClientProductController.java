@@ -1,6 +1,7 @@
 package ru.t1.apupynin.clientms.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 import ru.t1.apupynin.clientms.dto.ClientProductDto;
@@ -10,6 +11,9 @@ import ru.t1.apupynin.clientms.enums.ProductKey;
 import ru.t1.apupynin.clientms.mapper.DtoMapper;
 import ru.t1.apupynin.clientms.repository.ClientProductRepository;
 import ru.t1.apupynin.clientms.repository.ProductRepository;
+import ru.t1.apupynin.common.aspects.annotation.HttpIncomeRequestLog;
+import ru.t1.apupynin.common.aspects.annotation.HttpOutcomeRequestLog;
+import ru.t1.apupynin.common.aspects.annotation.LogDatasourceError;
 
 import java.net.URI;
 import java.util.List;
@@ -35,11 +39,19 @@ public class ClientProductController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('MASTER','GRAND_EMPLOYEE','CURRENT_CLIENT')")
+    @HttpIncomeRequestLog
+    @HttpOutcomeRequestLog
+    @LogDatasourceError
     public List<ClientProductDto> list() {
         return clientProductRepository.findAll().stream().map(mapper::toDto).toList();
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('MASTER','GRAND_EMPLOYEE','CURRENT_CLIENT')")
+    @HttpIncomeRequestLog
+    @HttpOutcomeRequestLog
+    @LogDatasourceError
     public ResponseEntity<ClientProductDto> get(@PathVariable Long id) {
         return clientProductRepository.findById(id)
                 .map(mapper::toDto)
@@ -48,6 +60,10 @@ public class ClientProductController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('MASTER','GRAND_EMPLOYEE','CURRENT_CLIENT')")
+    @HttpIncomeRequestLog
+    @HttpOutcomeRequestLog
+    @LogDatasourceError
     public ResponseEntity<ClientProductDto> create(@RequestBody ClientProduct cp) {
         ClientProduct saved = clientProductRepository.save(cp);
 
@@ -72,6 +88,10 @@ public class ClientProductController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('MASTER','GRAND_EMPLOYEE','CURRENT_CLIENT')")
+    @HttpIncomeRequestLog
+    @HttpOutcomeRequestLog
+    @LogDatasourceError
     public ResponseEntity<ClientProductDto> update(@PathVariable Long id, @RequestBody ClientProduct cp) {
         return clientProductRepository.findById(id)
                 .map(existing -> {
@@ -83,6 +103,10 @@ public class ClientProductController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('MASTER','GRAND_EMPLOYEE')")
+    @HttpIncomeRequestLog
+    @HttpOutcomeRequestLog
+    @LogDatasourceError
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         if (!clientProductRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
