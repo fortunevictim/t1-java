@@ -15,6 +15,9 @@ import ru.t1.apupynin.clientms.repository.BlacklistRegistryRepository;
 
 import java.time.LocalDateTime;
 import ru.t1.apupynin.clientms.repository.UserRepository;
+import ru.t1.apupynin.clientms.repository.UserRoleRepository;
+import ru.t1.apupynin.clientms.entity.UserRole;
+import ru.t1.apupynin.clientms.enums.Role;
 
 @Service
 public class RegistrationService {
@@ -22,13 +25,15 @@ public class RegistrationService {
     private final ClientRepository clientRepository;
     private final UserRepository userRepository;
     private final BlacklistRegistryRepository blacklistRepository;
+    private final UserRoleRepository userRoleRepository;
     private final BlacklistService blacklistService;
 
-    public RegistrationService(ClientRepository clientRepository, UserRepository userRepository, BlacklistRegistryRepository blacklistRepository, BlacklistService blacklistService) {
+    public RegistrationService(ClientRepository clientRepository, UserRepository userRepository, BlacklistRegistryRepository blacklistRepository, BlacklistService blacklistService, UserRoleRepository userRoleRepository) {
         this.clientRepository = clientRepository;
         this.userRepository = userRepository;
         this.blacklistRepository = blacklistRepository;
         this.blacklistService = blacklistService;
+        this.userRoleRepository = userRoleRepository;
     }
 
 
@@ -45,6 +50,8 @@ public class RegistrationService {
 
         User user = new User(req.login, req.password, req.email);
         user = userRepository.save(user);
+
+        userRoleRepository.save(new UserRole(user.getId(), Role.CURRENT_CLIENT));
 
         Client client = new Client(
                 req.clientId,

@@ -2,6 +2,7 @@ package ru.t1.apupynin.clientms.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 import ru.t1.apupynin.common.aspects.annotation.HttpIncomeRequestLog;
@@ -23,6 +24,7 @@ public class TransactionController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('MASTER','GRAND_EMPLOYEE','CURRENT_CLIENT')")
     @HttpIncomeRequestLog
     @HttpOutcomeRequestLog
     @LogDatasourceError

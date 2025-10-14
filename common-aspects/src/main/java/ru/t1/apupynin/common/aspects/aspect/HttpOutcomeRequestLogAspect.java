@@ -37,7 +37,6 @@ public class HttpOutcomeRequestLogAspect {
     @AfterReturning(pointcut = "@annotation(ru.t1.apupynin.common.aspects.annotation.HttpOutcomeRequestLog)", returning = "result")
     public void logHttpOutcomeRequest(JoinPoint joinPoint, Object result) {
         log.info("HTTP_OUTCOME start method={}", joinPoint.getSignature().toShortString());
-
         try {
             HttpServletRequest request = getCurrentHttpRequest();
 

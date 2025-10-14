@@ -38,7 +38,6 @@ public class HttpIncomeRequestLogAspect {
     @Before("@annotation(ru.t1.apupynin.common.aspects.annotation.HttpIncomeRequestLog)")
     public void logHttpIncomeRequest(JoinPoint joinPoint) {
         log.info("HTTP_INCOME start method={}", joinPoint.getSignature().toShortString());
-
         try {
             HttpServletRequest request = getCurrentHttpRequest();
 

@@ -1,6 +1,7 @@
 package ru.t1.apupynin.clientms.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.t1.apupynin.common.aspects.annotation.HttpIncomeRequestLog;
 import ru.t1.apupynin.common.aspects.annotation.HttpOutcomeRequestLog;
@@ -45,6 +46,7 @@ public class ProductController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('MASTER')")
     @HttpIncomeRequestLog
     @HttpOutcomeRequestLog
     @LogDatasourceError
@@ -54,6 +56,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('MASTER','GRAND_EMPLOYEE')")
     public ResponseEntity<ProductDto> update(@PathVariable("id") Long id, @RequestBody Product product) {
         return productRepository.findById(id)
                 .map(existing -> {
@@ -65,6 +68,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('MASTER','GRAND_EMPLOYEE')")
     public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         if (!productRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
