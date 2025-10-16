@@ -53,3 +53,15 @@ security:
   jwt:
     secret: b2hfbXlfZ29kX2l0c19zZWNyZXRfa2V5
     ttl-ms: 3600000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    tags:
+      application: ${spring.application.name}

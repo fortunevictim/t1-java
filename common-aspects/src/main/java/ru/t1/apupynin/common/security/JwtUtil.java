@@ -6,6 +6,8 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import javax.crypto.SecretKey;
 import java.time.Instant;
 import java.util.Date;
@@ -18,7 +20,16 @@ public class JwtUtil {
     private final long ttlMillis;
 
     public JwtUtil(String base64Secret, long ttlMillis) {
-        this.secretKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(base64Secret));
+        byte[] keyBytes = Decoders.BASE64.decode(base64Secret);
+        if (keyBytes.length < 32) {
+            try {
+                MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
+                keyBytes = sha256.digest(keyBytes);
+            } catch (NoSuchAlgorithmException e) {
+                throw new IllegalStateException("SHA-256 algorithm not available", e);
+            }
+        }
+        this.secretKey = Keys.hmacShaKeyFor(keyBytes);
         this.ttlMillis = ttlMillis;
     }
 
